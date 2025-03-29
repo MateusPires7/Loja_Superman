@@ -1,0 +1,10 @@
+.rodape {
+  background-color: var(--cor-secundaria);
+}
+
+.rodape__texto {
+  color: var(--cor-clara);
+  font-size: 3rem;
+  padding: 1.6rem;
+  text-align: center;
+}

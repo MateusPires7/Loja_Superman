@@ -1,0 +1,36 @@
+/* FONTE SUPERMAN */
+@import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
+
+/* FOLHAS DE ESTILOS */
+@import url(cabecalho.css);
+@import url(produtos.css);
+@import url(sobre.css);
+@import url(rodape.css);
+
+/* VARIÁVEIS CSS*/
+:root {
+  --cor-primaria: #f2c335;
+  --cor-secundaria: #a60505;
+  --cor-terciaria: #0a6aa6;
+  --cor-clara: #fff;
+  --cor-escura: #000;
+  --cor-shadow: #00000080;
+  --font: "Bangers", system-ui;
+}
+
+/* RESET CSS BÁSICO */
+* {
+  border: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* FONTE PRINCIPAL, TAMANHO DE FONTE E TEXT-SHADOW DO PROJETO */
+html,
+body {
+  font-family: var(--font);
+  font-size: 62.5%;
+  height: 90vh;
+  text-shadow: 1px 1px 2px var(--cor-shadow);
+}

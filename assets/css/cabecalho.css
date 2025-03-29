@@ -1,0 +1,125 @@
+.cabecalho {
+  align-items: center;
+  background-color: var(--cor-secundaria);
+  color: var(--cor-primaria);
+  display: flex;
+  flex-direction: column;
+  font-size: 3rem;
+  padding: 1rem;
+}
+
+.cabecalho__caixa {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1.6rem;
+  width: 100%;
+}
+
+.cabecalho__logo {
+  animation: voo 7s infinite linear;
+  transform-origin: center center;
+  width: 13rem;
+}
+
+.cabecalho__menu__link {
+  color: var(--cor-primaria);
+  padding: 1.6rem;
+  text-decoration: none;
+}
+
+.cabecalho__menu__link:hover {
+  background-color: var(--cor-primaria);
+  border-radius: 1.6rem;
+  color: var(--cor-escura);
+  text-shadow: none;
+}
+
+.cabecalho__login {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.cabecalho__login__entrada {
+  margin-left: 1rem;
+  padding-left: 1rem;
+}
+
+.cabecalho__login__entrar {
+  background-color: var(--cor-primaria);
+  border: 0.1rem solid var(--cor-escura);
+  border-radius: 1.6rem;
+  width: 60%;
+}
+
+.cabecalho__login__entrar:hover {
+  background-color: var(--cor-escura);
+  border-radius: 1.6rem;
+  color: var(--cor-primaria);
+}
+
+.cabecalho__carrinho {
+  font-size: 5rem;
+}
+
+/* ANIMAÇÃO SUPER-HOME HEADER */
+
+@keyframes voo {
+  0% {
+    transform: translateX(-5px) translateY(-3px) rotate(1deg);
+  }
+  25% {
+    transform: translateX(5px) translateY(3px) rotate(-1deg);
+  }
+  50% {
+    transform: translateX(3px) translateY(-5px) rotate(2deg);
+  }
+  75% {
+    transform: translateX(-3px) translateY(5px) rotate(-2deg);
+  }
+  100% {
+    transform: translateX(-5px) translateY(-3px) rotate(1deg);
+  }
+}
+
+/* MEDIA QUERIES */
+
+@media (min-width: 1024px) {
+  .cabecalho {
+    flex-direction: row;
+    font-size:3.4rem;
+    justify-content: space-around;
+    padding: 1.6rem;
+  }
+
+  .cabecalho__caixa {
+    width: auto;
+  }
+
+  .cabecalho__logo {
+    margin-right: 1.6rem;
+    width: 20rem;
+  }
+
+  .cabecalho__login {
+    flex-direction: row;
+  }
+
+  .cabecalho__login__caixa {
+    display: flex;
+  }
+
+  .cabecalho__login__entrar {
+    padding: 0 1.6rem;
+  }
+
+  .cabecalho__carrinho {
+    font-size: 7rem;
+  }
+
+  .cabecalho__carrinho:hover {
+    text-shadow: .1rem .1rem 3rem var(--cor-clara);
+  }
+}
