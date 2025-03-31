@@ -29,7 +29,7 @@
 /* FONTE PRINCIPAL, TAMANHO DE FONTE E TEXT-SHADOW DO PROJETO */
 html,
 body {
-  background-color: var(--cor-secundariaj);
+  background-color: var(--cor-secundaria);
   font-family: var(--font);
   font-size: 62.5%;
   height: 100vh;
