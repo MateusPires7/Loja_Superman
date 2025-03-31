@@ -31,6 +31,6 @@ html,
 body {
   font-family: var(--font);
   font-size: 62.5%;
-  height: 90vh;
+  height: 95vh;
   text-shadow: 1px 1px 2px var(--cor-shadow);
 }
