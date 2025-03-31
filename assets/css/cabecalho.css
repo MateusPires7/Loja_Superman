@@ -86,7 +86,7 @@
 
 /* MEDIA QUERIES */
 
-@media (min-width: 1024px) {
+@media (min-width: 1287px) {
   .cabecalho {
     flex-direction: row;
     font-size:3.4rem;
