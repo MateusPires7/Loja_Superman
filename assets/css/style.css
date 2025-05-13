@@ -3,9 +3,11 @@
 
 /* FOLHAS DE ESTILOS */
 @import url(cabecalho.css);
+@import url(rodape.css);
 @import url(produtos.css);
 @import url(sobre.css);
-@import url(rodape.css);
+@import url(login.css);
+@import url(carrinho.css);
 
 /* VARIÁVEIS CSS*/
 :root {
@@ -15,12 +17,11 @@
   --cor-clara: #fff;
   --cor-escura: #000;
   --cor-shadow: #00000080;
-  --font: "Bangers", system-ui;
+  --font-principal: "Bangers", system-ui;
 }
 
 /* RESET CSS BÁSICO */
 * {
-  border: none;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -29,10 +30,9 @@
 /* FONTE PRINCIPAL, TAMANHO DE FONTE E TEXT-SHADOW DO PROJETO */
 html,
 body {
-  background-color: var(--cor-secundaria);
-  font-family: var(--font);
+  font-family: var(--font-principal);
   font-size: 62.5%;
   height: 100vh;
-  text-shadow: 1px 1px 2px var(--cor-shadow);
+  text-shadow: .3rem .3rem .5rem var(--cor-shadow);
 }
 

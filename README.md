@@ -11,7 +11,13 @@ O escudo do Superman, um losango amarelo e vermelho com a letra "S", é um símb
 
 ## Descrição do Projeto
 
-Este projeto consiste em uma loja virtual temática do Superman, desenvolvida como parte da disciplina de Desenvolvimento Web I do curso de Desenvolvimento de Software Multiplataforma na Fatec Luigi Papaiz. O objetivo principal é aplicar os conhecimentos adquiridos em HTML, CSS e Bootstrap para criar um site funcional e visualmente atraente para a venda de produtos relacionados ao universo do Superman.
+Este projeto consiste em uma loja virtual temática do Superman, desenvolvida como parte da disciplina de Desenvolvimento Web I, ministrada pelo professor Bruno Zolotareff, do curso de Desenvolvimento de Software Multiplataforma na Fatec Luigi Papaiz. O objetivo principal é aplicar os conhecimentos adquiridos em HTML5, CSS3, Bootstrap e JavaScript para criar um site funcional e visualmente atraente para a venda de produtos relacionados ao universo do Superman.
+
+## Membros da Equipe
+* Clarice Ferreira Rocha Franco
+* Daniel Felipe Ferreira
+* Guilherme dos Santos Silva
+* Mateus de Sousa Pires
 
 ## Tecnologias Utilizadas
 
@@ -20,6 +26,7 @@ Este projeto foi construído utilizando as seguintes tecnologias web fundamentai
 * **HTML:** Utilizado para a estruturação semântica do conteúdo da loja virtual.
 * **CSS:** Empregado para a estilização visual dos elementos HTML, incluindo cores, tipografia e layout.
 * **Bootstrap:** Framework CSS open-source que facilita a criação de interfaces responsivas e com componentes pré-estilizados, agilizando o desenvolvimento e garantindo consistência visual.
+* **JavaScript:** Utilizado para adicionar interatividade e funcionalidades dinâmicas à loja virtual, incluindo a implementação de um CRUD (Create, Read, Update, Delete) no carrinho de compras e a simulação de um sistema de login através do Local Storage. Essas funcionalidades proporcionam uma experiência de compra mais completa e interativa para o usuário.
 
 ## Como Visualizar o Projeto
 

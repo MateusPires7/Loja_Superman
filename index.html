@@ -3,207 +3,261 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home - Loja Superman</title>
-    <!-- BOOTSTRAP -->
+    <title>Início - Loja Superman</title>
+    <!-- BOOTSTRAP CSS -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
       crossorigin="anonymous"
     />
     <!-- BOOTSTRAP ICONS -->
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1/font/bootstrap-icons.min.css"
     />
     <!-- FOLHA DE ESTILO PRINCIPAL -->
     <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- JAVASCRIPT -->
+    <script src="assets/js/script.js" defer></script>
   </head>
-  <body>
-    <!-- INÍCIO HEADER -->
-    <header class="cabecalho">
-      <div class="cabecalho__caixa">
-        <img
-          src="assets/img/superman-header.png"
-          alt="Super-Homem voando"
-          class="cabecalho__logo"
-        />
-        <nav class="cabecalho__menu">
-          <a href="index.html" class="cabecalho__menu__link">Home</a>
-          <a href="about.html" class="cabecalho__menu__link">Sobre</a>
-        </nav>
+  <body onload="dicionario_cadastros()">
+    <!-- INICIO CABECALHO -->
+    <header class="cabecalho container-fluid">
+      <div class="cabecalho__container container">
+        <div class="cabecalho__linha row">
+          <div class="cabecalho__logo-coluna col-12 col-md-5">
+            <div class="cabecalho__logo">
+              <img
+                src="assets/img/superman-header.png"
+                alt="Superman voando"
+                class="cabecalho__logo-imagem"
+              />
+            </div>
+          </div>
+          <div class="cabecalho__menu-coluna col-12 col-md-7">
+            <nav class="cabecalho__menu">
+              <ul class="cabecalho__menu-lista">
+                <li class="cabecalho__menu-item">
+                  <a href="index.html" class="cabecalho__menu-link">Início</a>
+                </li>
+                <li class="cabecalho__menu-item">
+                  <a href="about.html" class="cabecalho__menu-link">Sobre</a>
+                </li>
+                <li class="cabecalho__menu-item">
+                  <a
+                    href="login.html"
+                    class="cabecalho__menu-link"
+                    id="link_login"
+                    >Login</a
+                  >
+                </li>
+                <li class="cabecalho__menu-item">
+                  <a
+                    href="#"
+                    class="cabecalho__menu-link"
+                    onclick="acessarCarrinho()"
+                  >
+                    <i class="bi bi-cart4 cabecalho__menu-carrinho"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
       </div>
-      <form class="cabecalho__login">
-        <div class="cabecalho__login__caixa">
-          <label for="login">
-            <i class="bi bi-person-circle"></i>
-          </label>
-          <input
-            type="text"
-            id="login"
-            placeholder="Digite o seu login"
-            class="cabecalho__login__entrada"
-          />
-        </div>
-        <div class="cabecalho__login__caixa">
-          <label for="senha">
-            <i class="bi bi-lock"></i>
-          </label>
-          <input
-            type="password"
-            id="senha"
-            placeholder="Digite a sua senha"
-            class="cabecalho__login__entrada"
-          />
-        </div>
-        <input type="submit" value="Entrar" class="cabecalho__login__entrar" />
-      </form>
-      <i class="bi bi-cart4 cabecalho__carrinho"></i>
     </header>
-    <!-- FIM HEADER -->
-    <!-- INÍCIO PRODUTOS -->
-    <main class="produtos">
-      <!-- CARD 1 -->
-      <div class="produtos__card">
-        <h2 class="produtos__card__titulo">Camiseta 1</h2>
-        <img
-          src="assets/img/camiseta 1.png"
-          alt="modelo com camiseta tematica do Super-Homem"
-          class="produtos__card__imagem"
-        />
-        <div class="produtos__card__caixa">
-          <p class="produtos__card__preco">R$ 69,90</p>
-          <button class="produtos__card__botao">
-            <i class="bi bi-cart4"></i>Adicionar
-          </button>
+    <!-- FIM CABECALHO -->
+    <!-- INICIO PRODUTOS -->
+    <main class="produtos container-fluid">
+      <div class="produtos__linha row">
+        <div class="produtos__coluna col-12 col-md-6 col-lg-4">
+          <!-- PRODUTO 1 -->
+          <div class="produtos__card">
+            <h2 class="produtos__card-titulo">Camiseta 1</h2>
+            <img
+              src="assets/img/camiseta 1.png"
+              alt="Modelo com camiseta tematica do Superman"
+              class="produtos__card-imagem"
+            />
+            <div class="produtos__card-container">
+              <p class="produtos__card-preco">R$ 69,90</p>
+              <button
+                class="produtos__card-botao"
+                onclick="adicionarProdutoAoCarrinho('Camiseta 1', 69.90)"
+              >
+                <i class="bi bi-cart4"></i>Adicionar
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      <!-- CARD 2 -->
-      <div class="produtos__card">
-        <h2 class="produtos__card__titulo">Camiseta 2</h2>
-        <img
-          src="assets/img/camiseta 2.png"
-          alt="modelo com camiseta tematica do Super-Homem"
-          class="produtos__card__imagem"
-        />
-        <div class="produtos__card__caixa">
-          <p class="produtos__card__preco">R$ 69,90</p>
-          <button class="produtos__card__botao">
-            <i class="bi bi-cart4"></i>Adicionar
-          </button>
+        <div class="produtos__coluna col-12 col-md-6 col-lg-4">
+          <!-- PRODUTO 2 -->
+          <div class="produtos__card">
+            <h2 class="produtos__card-titulo">Camiseta 2</h2>
+            <img
+              src="assets/img/camiseta 2.png"
+              alt="Modelo com camiseta tematica do Superman"
+              class="produtos__card-imagem"
+            />
+            <div class="produtos__card-container">
+              <p class="produtos__card-preco">R$ 69,90</p>
+              <button
+                class="produtos__card-botao"
+                onclick="adicionarProdutoAoCarrinho('Camiseta 2', 69.90)"
+              >
+                <i class="bi bi-cart4"></i>Adicionar
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      <!-- CARD 3 -->
-      <div class="produtos__card">
-        <h2 class="produtos__card__titulo">Camiseta 3</h2>
-        <img
-          src="assets/img/camiseta 3.png"
-          alt="modelo com camiseta tematica do Super-Homem"
-          class="produtos__card__imagem"
-        />
-        <div class="produtos__card__caixa">
-          <p class="produtos__card__preco">R$ 69,90</p>
-          <button class="produtos__card__botao">
-            <i class="bi bi-cart4"></i>Adicionar
-          </button>
+        <div class="produtos__coluna col-12 col-md-6 col-lg-4">
+          <!-- PRODUTO 3 -->
+          <div class="produtos__card">
+            <h2 class="produtos__card-titulo">Camiseta 3</h2>
+            <img
+              src="assets/img/camiseta 3.png"
+              alt="Modelo com camiseta tematica do Superman"
+              class="produtos__card-imagem"
+            />
+            <div class="produtos__card-container">
+              <p class="produtos__card-preco">R$ 69,90</p>
+              <button
+                class="produtos__card-botao"
+                onclick="adicionarProdutoAoCarrinho('Camiseta 3', 69.90)"
+              >
+                <i class="bi bi-cart4"></i>Adicionar
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      <!-- CARD 4 -->
-      <div class="produtos__card">
-        <h2 class="produtos__card__titulo">Camiseta 4</h2>
-        <img
-          src="assets/img/camiseta 4.png"
-          alt="modelo com camiseta tematica do Super-Homem"
-          class="produtos__card__imagem"
-        />
-        <div class="produtos__card__caixa">
-          <p class="produtos__card__preco">R$ 69,90</p>
-          <button class="produtos__card__botao">
-            <i class="bi bi-cart4"></i>Adicionar
-          </button>
+        <div class="produtos__coluna col-12 col-md-6 col-lg-4">
+          <!-- PRODUTO 4 -->
+          <div class="produtos__card">
+            <h2 class="produtos__card-titulo">Camiseta 4</h2>
+            <img
+              src="assets/img/camiseta 4.png"
+              alt="Modelo com camiseta tematica do Superman"
+              class="produtos__card-imagem"
+            />
+            <div class="produtos__card-container">
+              <p class="produtos__card-preco">R$ 69,90</p>
+              <button
+                class="produtos__card-botao"
+                onclick="adicionarProdutoAoCarrinho('Camiseta 4', 69.90)"
+              >
+                <i class="bi bi-cart4"></i>Adicionar
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      <!-- CARD 5 -->
-      <div class="produtos__card">
-        <h2 class="produtos__card__titulo">Camiseta 5</h2>
-        <img
-          src="assets/img/camiseta 5.png"
-          alt="modelo com camiseta tematica do Super-Homem"
-          class="produtos__card__imagem"
-        />
-        <div class="produtos__card__caixa">
-          <p class="produtos__card__preco">R$ 69,90</p>
-          <button class="produtos__card__botao">
-            <i class="bi bi-cart4"></i>Adicionar
-          </button>
+        <div class="produtos__coluna col-12 col-md-6 col-lg-4">
+          <!-- PRODUTO 5 -->
+          <div class="produtos__card">
+            <h2 class="produtos__card-titulo">Camiseta 5</h2>
+            <img
+              src="assets/img/camiseta 5.png"
+              alt="Modelo com camiseta tematica do Superman"
+              class="produtos__card-imagem"
+            />
+            <div class="produtos__card-container">
+              <p class="produtos__card-preco">R$ 69,90</p>
+              <button
+                class="produtos__card-botao"
+                onclick="adicionarProdutoAoCarrinho('Camiseta 5', 69.90)"
+              >
+                <i class="bi bi-cart4"></i>Adicionar
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      <!-- CARD 6 -->
-      <div class="produtos__card">
-        <h2 class="produtos__card__titulo">Camiseta 6</h2>
-        <img
-          src="assets/img/camiseta 6.png"
-          alt="modelo com camiseta tematica do Super-Homem"
-          class="produtos__card__imagem"
-        />
-        <div class="produtos__card__caixa">
-          <p class="produtos__card__preco">R$ 69,90</p>
-          <button class="produtos__card__botao">
-            <i class="bi bi-cart4"></i>Adicionar
-          </button>
+        <div class="produtos__coluna col-12 col-md-6 col-lg-4">
+          <!-- PRODUTO 6 -->
+          <div class="produtos__card">
+            <h2 class="produtos__card-titulo">Camiseta 6</h2>
+            <img
+              src="assets/img/camiseta 6.png"
+              alt="Modelo com camiseta tematica do Superman"
+              class="produtos__card-imagem"
+            />
+            <div class="produtos__card-container">
+              <p class="produtos__card-preco">R$ 69,90</p>
+              <button
+                class="produtos__card-botao"
+                onclick="adicionarProdutoAoCarrinho('Camiseta 6', 69.90)"
+              >
+                <i class="bi bi-cart4"></i>Adicionar
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      <!-- CARD 7 -->
-      <div class="produtos__card">
-        <h2 class="produtos__card__titulo">Camiseta 7</h2>
-        <img
-          src="assets/img/camiseta 7.png"
-          alt="modelo com camiseta tematica do Super-Homem"
-          class="produtos__card__imagem"
-        />
-        <div class="produtos__card__caixa">
-          <p class="produtos__card__preco">R$ 69,90</p>
-          <button class="produtos__card__botao">
-            <i class="bi bi-cart4"></i>Adicionar
-          </button>
+        <div class="produtos__coluna col-12 col-md-6 col-lg-4">
+          <!-- PRODUTO 7 -->
+          <div class="produtos__card">
+            <h2 class="produtos__card-titulo">Camiseta 7</h2>
+            <img
+              src="assets/img/camiseta 7.png"
+              alt="Modelo com camiseta tematica do Superman"
+              class="produtos__card-imagem"
+            />
+            <div class="produtos__card-container">
+              <p class="produtos__card-preco">R$ 69,90</p>
+              <button
+                class="produtos__card-botao"
+                onclick="adicionarProdutoAoCarrinho('Camiseta 7', 69.90)"
+              >
+                <i class="bi bi-cart4"></i>Adicionar
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      <!-- CARD 8 -->
-      <div class="produtos__card">
-        <h2 class="produtos__card__titulo">Camiseta 8</h2>
-        <img
-          src="assets/img/camiseta 8.png"
-          alt="modelo com camiseta tematica do Super-Homem"
-          class="produtos__card__imagem"
-        />
-        <div class="produtos__card__caixa">
-          <p class="produtos__card__preco">R$ 69,90</p>
-          <button class="produtos__card__botao">
-            <i class="bi bi-cart4"></i>Adicionar
-          </button>
+        <div class="produtos__coluna col-12 col-md-6 col-lg-4">
+          <!-- PRODUTO 8 -->
+          <div class="produtos__card">
+            <h2 class="produtos__card-titulo">Camiseta 8</h2>
+            <img
+              src="assets/img/camiseta 8.png"
+              alt="Modelo com camiseta tematica do Superman"
+              class="produtos__card-imagem"
+            />
+            <div class="produtos__card-container">
+              <p class="produtos__card-preco">R$ 69,90</p>
+              <button
+                class="produtos__card-botao"
+                onclick="adicionarProdutoAoCarrinho('Camiseta 8', 69.90)"
+              >
+                <i class="bi bi-cart4"></i>Adicionar
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      <!-- CARD 9 -->
-      <div class="produtos__card">
-        <h2 class="produtos__card__titulo">Camiseta 9</h2>
-        <img
-          src="assets/img/camiseta 9.png"
-          alt="modelo com camiseta tematica do Super-Homem"
-          class="produtos__card__imagem"
-        />
-        <div class="produtos__card__caixa">
-          <p class="produtos__card__preco">R$ 69,90</p>
-          <button class="produtos__card__botao">
-            <i class="bi bi-cart4"></i>Adicionar
-          </button>
+        <div class="produtos__coluna col-12 col-md-6 col-lg-4">
+          <!-- PRODUTO 9 -->
+          <div class="produtos__card">
+            <h2 class="produtos__card-titulo">Camiseta 9</h2>
+            <img
+              src="assets/img/camiseta 9.png"
+              alt="Modelo com camiseta tematica do Superman"
+              class="produtos__card-imagem"
+            />
+            <div class="produtos__card-container">
+              <p class="produtos__card-preco">R$ 69,90</p>
+              <button
+                class="produtos__card-botao"
+                onclick="adicionarProdutoAoCarrinho('Camiseta 9', 69.90)"
+              >
+                <i class="bi bi-cart4"></i>Adicionar
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </main>
     <!-- FIM PRODUTOS -->
-    <!-- INÍCIO RODAPÉ -->
-     <footer class="rodape">
-      <p class="rodape__texto">&copy; Loja Superman - 2025</p>
-     </footer>
-    <!-- FIM RODAPÉ -->
+    <!-- INICIO RODAPE -->
+    <footer class="rodape">
+      <p class="rodape__texto">© 2025 Loja Superman</p>
+    </footer>
+    <!-- FIM RODAPE -->
   </body>
 </html>

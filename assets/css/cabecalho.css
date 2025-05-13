@@ -1,67 +1,40 @@
 .cabecalho {
-  align-items: center;
   background-color: var(--cor-secundaria);
-  color: var(--cor-primaria);
-  display: flex;
-  flex-direction: column;
-  font-size: 2.8rem;
-  padding: 1rem;
+  padding-bottom: 1rem;
 }
 
-.cabecalho__caixa {
-  align-items: center;
+.cabecalho__logo-coluna {
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 1.6rem;
-  width: 100%;
+  justify-content: center;
 }
 
 .cabecalho__logo {
   animation: voo 7s infinite linear;
+  padding: 1.6rem;
   transform-origin: center center;
-  width: 13rem;
 }
 
-.cabecalho__menu__link {
+.cabecalho__menu-lista {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cabecalho__menu-link {
   color: var(--cor-primaria);
-  padding: 1.6rem;
+  font-size: 3.5rem;
+  padding: 1rem;
   text-decoration: none;
 }
 
-.cabecalho__menu__link:hover {
+.cabecalho__menu-link:hover {
   background-color: var(--cor-primaria);
   border-radius: 1.6rem;
   color: var(--cor-escura);
   text-shadow: none;
-}
-
-.cabecalho__login {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-}
-
-.cabecalho__login__entrada {
-  margin-left: 1rem;
-  padding-left: 1rem;
-}
-
-.cabecalho__login__entrar {
-  background-color: var(--cor-primaria);
-  border: 0.1rem solid var(--cor-escura);
-  border-radius: 1.6rem;
-  width: 60%;
-}
-
-.cabecalho__login__entrar:hover {
-  background-color: var(--cor-escura);
-  border-radius: 1.6rem;
-  color: var(--cor-primaria);
-}
-
-.cabecalho__carrinho {
-  font-size: 5rem;
 }
 
 /* ANIMAÇÃO SUPER-HOME HEADER */
@@ -85,41 +58,34 @@
 }
 
 /* MEDIA QUERIES */
+@media (min-width: 768px) {
+  .cabecalho__logo-imagem {
+    width: 25rem;
+  }
 
-@media (min-width: 1287px) {
-  .cabecalho {
-    flex-direction: row;
-    font-size:3.4rem;
-    justify-content: space-around;
+  .cabecalho__menu-coluna {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cabecalho__menu-link {
+    font-size: 4.5rem;
     padding: 1.6rem;
   }
 
-  .cabecalho__caixa {
-    width: auto;
+}
+
+@media (min-width: 992px) {
+  .cabecalho__logo-imagem {
+    width: 35rem;
   }
 
-  .cabecalho__logo {
-    margin-right: 1.6rem;
-    width: 20rem;
+  .cabecalho__menu-link {
+    font-size: 6rem;
   }
 
-  .cabecalho__login {
-    flex-direction: row;
-  }
-
-  .cabecalho__login__caixa {
-    display: flex;
-  }
-
-  .cabecalho__login__entrar {
-    padding: 0 1.6rem;
-  }
-
-  .cabecalho__carrinho {
-    font-size: 7rem;
-  }
-
-  .cabecalho__carrinho:hover {
-    text-shadow: .1rem .1rem 3rem var(--cor-clara);
+  .cabecalho__menu-carrinho {
+    font-size: 9rem;
   }
 }

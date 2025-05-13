@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sobre - Loja Superman</title>
+    <title>Login - Loja Superman</title>
     <!-- BOOTSTRAP CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
@@ -48,7 +48,7 @@
                   <a href="login.html" class="cabecalho__menu-link" id="link_login">Login</a>
                 </li>
                 <li class="cabecalho__menu-item">
-                  <a href=#" class="cabecalho__menu-link" onclick="acessarCarrinho()">
+                  <a href="#" class="cabecalho__menu-link" onclick="acessarCarrinho()">
                     <i class="bi bi-cart4 cabecalho__menu-carrinho"></i>
                   </a>
                 </li>
@@ -59,45 +59,54 @@
       </div>
     </header>
     <!-- FIM CABECALHO -->
-    <!-- INICIO SOBRE -->
-    <main class="sobre">
-      <div class="sobre__container container-fluid">
-        <div class="sobre__linha row">
-          <div class="sobre__coluna col-12">
-            <img
-              src="assets/img/multiverso-superman.webp"
-              alt="Foto com todos os Supermans"
-              class="sobre__imagem"
+    <!-- INICIO FORMULARIO LOGIN -->
+    <main class="login">
+      <div class="login__linha row">
+        <div class="login__coluna-formulario col-12">
+          <h1 class="login__titulo">Bem vindo de volta</h1>
+          <p class="login__texto">
+            Digite seu login e senha para acessar sua conta
+          </p>
+          <img
+            src="assets/img/superman-logo.png"
+            alt="Logo do Superman"
+            class="login__imagem"
+          />
+          <form class="login__formulario">
+            <div class="login__formulario-container">
+              <label for="login">
+                <i class="bi bi-person-circle login__formulario-icone"></i>
+              </label>
+              <input
+                type="text"
+                id="login"
+                placeholder="Digite o seu login"
+                class="login__formulario-entrada"
+              />
+            </div>
+            <div class="login__formulario-container">
+              <label for="senha">
+                <i class="bi bi-lock login__formulario-icone"></i>
+              </label>
+              <input
+                type="password"
+                id="senha"
+                placeholder="Digite a sua senha"
+                class="login__formulario-entrada"
+              />
+            </div>
+            <input
+              type="button"
+              value="Entrar"
+              class="login__formulario-botao"
+              id="entrar"
+              onclick="logar()"
             />
-          </div>
-          <div class="sobre__coluna col-12">
-            <p class="sobre__texto">
-              Bem-vindo(a) à Loja do Superman, o seu destino kriptoniano número
-              um para camisetas incríveis do Superman! Aqui, acreditamos que o
-              símbolo da esperança transcende os quadrinhos e as telas,
-              inspirando-nos a alcançar nossos próprios feitos heroicos no dia a
-              dia.
-            </p>
-            <p class="sobre__texto">
-              Nossa paixão pelo Último Filho de Kripton é o que nos impulsiona a
-              trazer até você uma coleção cuidadosamente selecionada de
-              camisetas que celebram todas as facetas desse ícone atemporal.
-              Desde o clássico escudo vermelho e amarelo que representa verdade,
-              justiça e o modo americano (ou a busca por um mundo melhor!), até
-              designs mais modernos e artísticos, cada peça em nossa loja é
-              pensada para o fã do Superman de todas as idades e estilos.
-            </p>
-            <p class="sobre__texto">
-              Nossa missão é simples: oferecer a você as melhores camisetas do
-              Superman, com um atendimento excepcional e uma experiência de
-              compra online fácil e segura. Queremos que você se sinta parte da
-              família Superman ao vestir nossos produtos.
-            </p>
-          </div>
+          </form>
         </div>
       </div>
     </main>
-    <!-- FIM SOBRE -->
+    <!-- FIM FORMULARIO LOGIN -->
     <!-- INICIO RODAPE -->
     <footer class="rodape">
       <p class="rodape__texto">© 2025 Loja Superman</p>

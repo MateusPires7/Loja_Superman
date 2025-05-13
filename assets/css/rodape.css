@@ -3,8 +3,21 @@
 }
 
 .rodape__texto {
-  color: var(--cor-clara);
-  font-size: 3rem;
-  padding: 3.2rem;
+  color: var(--cor-primaria);
+  font-size: 4rem;
+  padding: 1.6rem 0;
   text-align: center;
+}
+
+/* MEDIA QUERIES */
+@media (min-width: 768px) {
+  .rodape__texto {
+    font-size: 4.5rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .rodape__texto {
+    font-size: 6rem;
+  }
 }
