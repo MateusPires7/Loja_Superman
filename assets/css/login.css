@@ -41,10 +41,6 @@
   gap: 1.6rem;
 }
 
-.login__formulario-container {
-  padding: 1.6rem;
-}
-
 .login__formulario-label {
   color: var(--cor-primaria);
   font-size: 2.8rem;
