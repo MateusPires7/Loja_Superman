@@ -17,6 +17,21 @@ function dicionario_cadastros() {
   localStorage.setItem("bancodados", meujson);
 }
 
+/* ADICIONADO FUNÇÃO DE REDIRECIONAR NOS BOTÕES DOS PRODUTOS */
+const carrinho_adicionar = document.querySelectorAll(".verificador");
+carrinho_adicionar.forEach((carrinho) => {
+  carrinho.addEventListener("click", verificar_login);
+});
+
+/* REDIRECIONAR PARA PAGINA DE LOGIN CASO NÃO ESTIVER LOGADO */
+function verificar_login() {
+  const usuario_logado = sessionStorage.getItem("usuario_logado");
+  if (!usuario_logado) {
+    alert("Você precisa estar logado para acessar essa função!");
+    window.location.href = "login.html";
+  }
+}
+
 /* VERIFICAR CADASTROS E LOGAR */
 function logar() {
   const login = document.querySelector("#login").value;
@@ -27,7 +42,7 @@ function logar() {
   for (let i = 0; i < dados.length; i++) {
     if (login == dados[i].login && senha == dados[i].senha) {
       alert(`Bem vindo: ${dados[i].usuario}`); // DAR BOAS VINDAS AO CLIENTE
-      sessionStorage.setItem("usuarioLogado", dados[i].usuario); // GUARDAR INFORMACAO DE LOGADO
+      sessionStorage.setItem("usuario_logado", dados[i].usuario); // GUARDAR INFORMACAO DE LOGADO
       window.location.href = "index.html"; // DIRECIONAR PARA PAGINA INICIAL DEPOIS DE LOGADO
     }
   }
@@ -35,7 +50,7 @@ function logar() {
 
 /* VERIFICA SE ESTÁ LOGADO E MUDA O NOME NO HEADER */
 const link_login = document.getElementById("link_login");
-const usuario = sessionStorage.getItem("usuarioLogado");
+const usuario = sessionStorage.getItem("usuario_logado");
 if (usuario) {
   link_login.textContent = usuario;
   link_login.href = "#";
@@ -48,9 +63,7 @@ if (usuario) {
 
 /* FUNÇAO PARA DESLOGAR */
 function deslogar() {
-  sessionStorage.removeItem("usuarioLogado");
+  sessionStorage.removeItem("usuario_logado");
   alert("Você foi desconectado.");
   window.location.reload();
 }
-
-
