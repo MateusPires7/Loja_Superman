@@ -152,36 +152,22 @@ function deslogar() {
   window.location.reload();
 }
 
-/* ADICIONADO FUNÇÃO DE REDIRECIONAR NOS BOTÕES DOS PRODUTOS 
+/* ADICIONADO FUNÇÃO DE REDIRECIONAR NOS BOTÕES DOS PRODUTOS */
 const carrinho_adicionar = document.querySelectorAll(".verificador");
-carrinho_adicionar.forEach((carrinho) => {
-  carrinho.addEventListener("click", verificar_login);
+carrinho_adicionar.forEach((carrinho_adicionar) => {
+  carrinho_adicionar.addEventListener("click", redirecionar);
 });
 
-/* REDIRECIONAR PARA PAGINA DE LOGIN CASO NÃO ESTIVER LOGADO 
-function verificar_login() {
-  const usuario_logado = sessionStorage.getItem("usuario_logado");
-  if (!usuario_logado) {
+/* ADICIONADO FUNÇÃO DE REDIRECIONAR NO ICONE DO CARRINHO */
+const carrinho = document.querySelector("#item-menu-carrinho");
+carrinho.addEventListener("click", redirecionar);
+
+
+/* REDIRECIONAR PARA PAGINA DE LOGIN CASO NÃO ESTIVER LOGADO */
+function redirecionar() {
+  if (!verificar_se_logado()) {
     alert("Você precisa estar logado para acessar essa função!");
     window.location.href = "login.html";
-  } else {
-    window.location.href = "cart.html";
-  }
-}
-
-/* VERIFICAR CADASTROS E LOGAR 
-function logar() {
-  const login = document.querySelector("#login").value;
-  const senha = document.querySelector("#senha").value;
-  /* PEGAR DADOS DO LOCAL STORAGE 
-  const dados = JSON.parse(localStorage.getItem("bancodados"));
-  /* VERIFICAR LOGIN E SENHA 
-  for (let i = 0; i < dados.length; i++) {
-    if (login == dados[i].login && senha == dados[i].senha) {
-      alert(`Bem vindo: ${dados[i].usuario}`); // DAR BOAS VINDAS AO CLIENTE
-      sessionStorage.setItem("usuario_logado", dados[i].usuario); // GUARDAR INFORMACAO DE LOGADO
-      window.location.href = "index.html"; // DIRECIONAR PARA PAGINA INICIAL DEPOIS DE LOGADO
-    }
   }
 }
 
@@ -191,12 +177,5 @@ continuar.addEventListener("click", continuar_comprando);
 /* FUNÇAO PARA DIRECIONAR PARA PAGINA INICIAL 
 function continuar_comprando() {
   window.location.href = "index.html";
-}
-
-/* FUNÇAO PARA DESLOGAR 
-function deslogar() {
-  sessionStorage.removeItem("usuario_logado");
-  alert("Você foi desconectado.");
-  window.location.reload();
 }
  */
