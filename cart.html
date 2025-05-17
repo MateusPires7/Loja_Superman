@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Loja Superman</title>
+    <title>Carrinho - Loja Superman</title>
     <!-- BOOTSTRAP CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
@@ -71,54 +71,22 @@
       </div>
     </header>
     <!-- FIM CABECALHO -->
-    <!-- INICIO FORMULARIO LOGIN -->
-    <main class="login">
-      <div class="login__linha row gx-0">
-        <div class="login__coluna-formulario col-12">
-          <h1 class="login__titulo">Bem vindo de volta</h1>
-          <p class="login__texto">
-            Digite seu login e senha para acessar sua conta
-          </p>
-          <img
-            src="assets/img/superman-logo.png"
-            alt="Logo do Superman"
-            class="login__imagem"
-          />
-          <form class="login__formulario">
-            <div class="login__formulario-container">
-              <label for="login" class="login__formulario-label">
-                Login:
-              </label>
-              <input
-                type="text"
-                id="login"
-                placeholder="Digite o seu login"
-                class="login__formulario-entrada"
-              />
-            </div>
-            <div class="login__formulario-container">
-              <label for="senha" class="login__formulario-label">
-                Senha:
-              </label>
-              <input
-                type="password"
-                id="senha"
-                placeholder="Digite a sua senha"
-                class="login__formulario-entrada"
-              />
-            </div>
-            <input
-              type="button"
-              value="Entrar"
-              class="login__formulario-botao"
-              id="entrar"
-              onclick="logar()"
-            />
-          </form>
+    <!-- INICIO CARRINHO -->
+    <main class="carrinho">
+      <div class="container-fluid carrinho__container">
+        <h1 class="carrinho__titulo">Carrinho</h1>
+        <hr />
+        <div class="carrinho__produtos">
+        </div>
+        <hr />
+        <div class="carrinho__caixa">
+          <p class="carrinho__valor">R$ 0,00</p>
+          <button class="carrinho__pagamento">Finalizar Compra</button>
+          <button class="carrinho__continuar" id="continuar_compras">Continuar Comprando</button>
         </div>
       </div>
     </main>
-    <!-- FIM FORMULARIO LOGIN -->
+    <!-- FIM CARRINHO -->
     <!-- INICIO RODAPE -->
     <footer class="rodape">
       <p class="rodape__texto">© 2025 Loja Superman</p>

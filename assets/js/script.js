@@ -29,6 +29,8 @@ function verificar_login() {
   if (!usuario_logado) {
     alert("Você precisa estar logado para acessar essa função!");
     window.location.href = "login.html";
+  } else {
+    window.location.href = "cart.html";
   }
 }
 
@@ -59,6 +61,14 @@ if (usuario) {
       deslogar();
     }
   };
+}
+
+/* REDIRECIONAR PARA PAGINA INICIAL CASO QUEIRA CONTINUAR COMPRANDO */
+const continuar = document.querySelector("#continuar_compras");
+continuar.addEventListener("click", continuar_comprando);
+/* FUNÇAO PARA DIRECIONAR PARA PAGINA INICIAL */
+function continuar_comprando() {
+  window.location.href = "index.html";
 }
 
 /* FUNÇAO PARA DESLOGAR */
