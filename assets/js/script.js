@@ -162,20 +162,24 @@ carrinho_adicionar.forEach((carrinho_adicionar) => {
 const carrinho = document.querySelector("#item-menu-carrinho");
 carrinho.addEventListener("click", redirecionar);
 
-
 /* REDIRECIONAR PARA PAGINA DE LOGIN CASO NÃO ESTIVER LOGADO */
-function redirecionar() {
+function redirecionar(event) {
   if (!verificar_se_logado()) {
     alert("Você precisa estar logado para acessar essa função!");
     window.location.href = "login.html";
+  } else {
+    if (event.currentTarget.closest("#item-menu-carrinho")) {
+      event.preventDefault();
+      window.location.href = "cart.html"; // REDIRECIONA PARA PAGINA DO CARRINHO
+    }
   }
 }
 
-/* REDIRECIONAR PARA PAGINA INICIAL CASO QUEIRA CONTINUAR COMPRANDO
+/* REDIRECIONAR PARA PAGINA INICIAL CASO QUEIRA CONTINUAR COMPRANDO */
 const continuar = document.querySelector("#continuar_compras");
 continuar.addEventListener("click", continuar_comprando);
-/* FUNÇAO PARA DIRECIONAR PARA PAGINA INICIAL 
+
+/* FUNÇAO PARA DIRECIONAR PARA PAGINA INICIAL */
 function continuar_comprando() {
   window.location.href = "index.html";
 }
- */
