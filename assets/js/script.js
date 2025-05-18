@@ -190,7 +190,7 @@ function adicionar_produto(event) {
   const produtos = JSON.parse(localStorage.getItem("bancodados_produtos")); // PEGAR PRODUTOS GUARDADOS NO LOCAL STORAGE
   const botao = event.currentTarget; // IDENTIFICAR O BOTÃO ADICIONAR QUE FOI APERTADO
   const card = botao.closest(".produtos__card"); // PEGAR O CARD PAI DO BOTÃO ADICIONAR
-  const nomeProduto = card.querySelector(".produtos__card-titulo"); // PEGAR TITULO DO PRODUTO
+  const nomeProduto = card.querySelector(".produtos__card-titulo").textContent.trim(); // PEGAR TITULO DO PRODUTO
   const produtoSelecionado = produtos.find((p) => p.nome === nomeProduto); // PROCURAR O PRODUTO NO LOCAL STORAGE PELO NOME
   let carrinho = JSON.parse(localStorage.getItem("carrinho_superman")) || []; // CRIAR CARRINHO OU PEGAR CARRINHO EXISTENTE
   
