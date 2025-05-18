@@ -153,8 +153,8 @@ function deslogar() {
 
 /* ADICIONADO FUNÇÃO DE REDIRECIONAR NOS BOTÕES DOS PRODUTOS */
 const carrinho_adicionar = document.querySelectorAll(".verificador");
-carrinho_adicionar.forEach((carrinho_adicionar) => {
-  carrinho_adicionar.addEventListener("click", redirecionar);
+carrinho_adicionar.forEach((botao) => {
+  botao.addEventListener("click", redirecionar);
 });
 
 /* ADICIONADO FUNÇÃO DE REDIRECIONAR NO ICONE DO CARRINHO */
@@ -172,8 +172,7 @@ function redirecionar(event) {
       window.location.href = "cart.html"; // REDIRECIONA PARA PAGINA DO CARRINHO
     } else if (event.currentTarget.classList.contains("verificador")) {
       alert("Produto foi adicionado ao carrinho!");
-      adicionar_produto();
-      window.location.href = "cart.html";
+      adicionar_produto(event);
     }
   }
 }
@@ -187,7 +186,7 @@ function continuar_comprando() {
   window.location.href = "index.html";
 }
 
-function adicionar_produto() {
+function adicionar_produto(event) {
   // Eita! Pegar os produtos que tão guardados, né?
   const produtos = JSON.parse(localStorage.getItem("bancodados_produtos"));
 
