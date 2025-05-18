@@ -7,6 +7,7 @@
   font-size: 5rem;
   padding: 3.2rem;
   text-align: center;
+  text-shadow: 0.3rem 0.3rem 0.5rem var(--cor-clara);
 }
 
 .carrinho__produtos {
@@ -16,6 +17,7 @@
 .carrinho__mensagem-vazio {
   font-size: 3rem;
   text-align: center;
+  text-shadow: 0.3rem 0.3rem 0.5rem var(--cor-clara);
 }
 
 .carrinho__caixa {
@@ -29,6 +31,7 @@
   font-size: 4rem;
   text-align: right;
   padding: 1.6rem;
+  text-shadow: 0.3rem 0.3rem 0.5rem var(--cor-clara);
 }
 
 .carrinho__pagamento {
