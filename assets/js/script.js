@@ -187,84 +187,78 @@ function continuar_comprando() {
   window.location.href = "index.html";
 }
 
-/* ADICIONAR OS PRODUTOS NO CARRINHO */
 function adicionar_produto() {
-  const produtos = JSON.parse(localStorage.getItem("bancodados_produtos")); // PEGAR PRODUTOS DO LOCAL STORAGE
-  const botao = event.currentTarget; // IDENTIFICAR O BOTÃO ADICIONAR QUE FOI CLICADO
-  const card = botao.closest(".produtos__card"); // IDENTIFICAR QUAL PRODUTO QUE FOI ADICIONADO
-  const nomeProduto = card.querySelector(".produtos__card-titulo"); //IDENTIFICAR O NOME DO PRODUTO QUE FOI ADICIONADO
+  // Eita! Pegar os produtos que tão guardados, né?
+  const produtos = JSON.parse(localStorage.getItem("bancodados_produtos"));
 
-  /* PROCURAR OS PRODUTOS NO LOCAL STORAGE */
-  let produtoSelecionado;
-  for (let i = 0; i < produtos.length; i++) {
-    if (produtos[i].nome === nomeProduto) {
-      produtoSelecionado = produtos[i];
-      break;
-    }
-  }
+  // Qual botão que o cara clicou? Deixa eu ver...
+  const botao = event.currentTarget;
 
-  let carrinho = JSON.parse(localStorage.getItem("carrinho_superman")) || []; // VERIFICAR SE JÁ EXISTE UM CARRINHO SALVO, SE NÃO TIVER, CRIAR
+  // Ah, pegou o card do produto! Beleza!
+  const card = botao.closest(".produtos__card");
+  const nomeProduto = card
+    .querySelector(".produtos__card-titulo")
+    .textContent.trim();
 
-  /* VERIFICA SE O PRODUTO JÁ ESTÁ NO CARRINHO */
-  let produtoNoCarrinho;
-  for (let i = 0; i < carrinho.length; i++) {
-    if (carrinho[i].id === produtoSelecionado.id) {
-      produtoNoCarrinho = carrinho[i];
-      break;
-    }
-  }
+  // Procurar o produto lá no nosso banco de dados
+  const produtoSelecionado = produtos.find((p) => p.nome === nomeProduto);
+
+  // Vê se já tem carrinho salvo, se não tiver, cria um do zero
+  let carrinho = JSON.parse(localStorage.getItem("carrinho_superman")) || [];
+
+  // Opa, esse produto já tá no carrinho?
+  const produtoNoCarrinho = carrinho.find(
+    (item) => item.id === produtoSelecionado.id
+  );
 
   if (produtoNoCarrinho) {
-    produtoNoCarrinho.quantidade++;
+    // Se já tem, só aumentar a quantidade, sem stress
+    produtoNoCarrinho.quantidade += 1;
   } else {
-    const novoProduto = {
-      id: produtoSelecionado.id,
-      nome: produtoSelecionado.nome,
-      preco: produtoSelecionado.preco,
+    // Se é novidade, bota ele no carrinho com quantidade 1
+    carrinho.push({
+      ...produtoSelecionado,
       quantidade: 1,
-    };
-
-    carrinho.push(novoProduto);
+    });
   }
 
-  localStorage.setItem("carrinho_superman", JSON.stringify(carrinho)); // SALVA O CARRINHO NO LOCAL STORAGE
+  // Salva as mudanças no carrinho pra não perder a compra
+  localStorage.setItem("carrinho_superman", JSON.stringify(carrinho));
 }
 
+// --- A mágica do carrinho na página do carrinho (cart.html) ---
 if (window.location.pathname.includes("cart.html")) {
-  // SE ESTIVER NA PAGINA DO CARRINHO, ATUALIZA O CARRINHO
   atualizar_carrinho();
 
+  // Ficar de olho nos cliques pra aumentar, diminuir ou tirar produto
   document
     .querySelector(".carrinho__produtos")
     .addEventListener("click", function (event) {
       if (event.target.classList.contains("btn-aumentar")) {
-        mudar_quantidade(event.target.dataset.id, 1); // AUMENTA UM
+        mudar_quantidade(event.target.dataset.id, 1); // Aumentar um pouquinho
       }
       if (event.target.classList.contains("btn-diminuir")) {
-        mudar_quantidade(event.target.dataset.id, -1); // DIMINUI UM
+        mudar_quantidade(event.target.dataset.id, -1); // Diminuir um pouquinho
       }
       if (event.target.classList.contains("btn-remover")) {
-        tirar_produto(event.target.dataset.id); // EXCLUI O PRODUTO
+        tirar_produto(event.target.dataset.id); // Xô produto!
       }
     });
 }
 
-/* ESCREVE O CODIGO HTML PARA ADICIONAR O PRODUTO AO CARRINHO */
+// Desenha o carrinho na tela e mostra o preço total, saca?
 function atualizar_carrinho() {
   const carrinho = JSON.parse(localStorage.getItem("carrinho_superman")) || [];
   const listaDeProdutos = document.querySelector(".carrinho__produtos");
   const valorTotalNaTela = document.querySelector(".carrinho__valor");
 
-  // SE NÃO TIVER ONDE MOSTRAR O PRODUTO, NÃO MOSTRAR
-  if (!listaDeProdutos) {
-    return;
-  } else if (!valorTotalNaTela) {
-    return;
-  }
+  // Se não achou os lugares pra mostrar, nem tenta
+  if (!listaDeProdutos || !valorTotalNaTela) return;
 
-  /* MENSAGEM DE CARRINHO VAZIO */
+  // Carrinho vazio? Avisa o cliente!
   if (carrinho.length === 0) {
-    listaDeProdutos.innerHTML = `<p class="carrinho__mensagem-vazio">Ih, carrinho vazio! Bora comprar!</p>`;
+    listaDeProdutos.innerHTML =
+      "<p style='font-size:2rem;text-align:center;'>Ih, carrinho vazio! Bora comprar!</p>";
     valorTotalNaTela.textContent = "R$ 0,00";
     return;
   }
@@ -306,83 +300,43 @@ function atualizar_carrinho() {
     `;
   });
 
-  /* ENVIA O HTML PARA O CARRINHO E ATUALIZA O VALOR TOTAL */
+  // Manda o HTML pro carrinho e atualiza o valor total
   listaDeProdutos.innerHTML = htmlDoCarrinho;
   valorTotalNaTela.textContent =
     "R$ " + totalDaCompra.toFixed(2).replace(".", ",");
 }
 
-/* MUDA A QUANTIDADE DE PRODUTOS NO CARRINHO */
+// Muda a quantidade do produto no carrinho
 function mudar_quantidade(idDoProduto, variacao) {
-  let carrinhoTexto = localStorage.getItem("carrinho_superman");
-  let carrinho;
-  if (carrinhoTexto === null) {
-    carrinho = [];
-  } else {
-    carrinho = JSON.parse(carrinhoTexto);
-  }
+  let carrinho = JSON.parse(localStorage.getItem("carrinho_superman")) || [];
+  const produtoAchado = carrinho.find((p) => p.id === idDoProduto);
 
-  /* ENCONTRAR O PRODUTO NO CARRINHO */
-  let produtoAchado;
-  for (let i = 0; i < carrinho.length; i++) {
-    if (carrinho[i].id === idDoProduto) {
-      produtoAchado = carrinho[i];
-      break;
-    }
-  }
+  // Se não achou o produto, fazer nada
+  if (!produtoAchado) return;
 
-  /* SE NÃO TIVER O PRODUTO, NÃO FAZ NADA */
-  if (!produtoAchado) {
-    return;
-  }
+  produtoAchado.quantidade += variacao;
 
-  /* ALTERA A QUANTIDADE DE PRODUTO */
-  produtoAchado.quantidade = produtoAchado.quantidade + variacao;
-
-  /* SE A QUANTIDADE FOR ZERO, REMOVER O PRODUTO DO CARRINHO */
+  // Se a quantidade virar zero ou menos, tira o produto do carrinho
   if (produtoAchado.quantidade < 1) {
-    let novoCarrinho = [];
-    for (let i = 0; i < carrinho.length; i++) {
-      if (carrinho[i].id !== idDoProduto) {
-        novoCarrinho.push(carrinho[i]);
-      }
-    }
-    carrinho = novoCarrinho;
+    carrinho = carrinho.filter((p) => p.id !== idDoProduto);
   }
 
-  /* ATUALIZA SALVAMENTO DO CARRINHO */
+  // Salva o carrinho atualizado
   localStorage.setItem("carrinho_superman", JSON.stringify(carrinho));
 
-  /* ATUALIZA A TELA DO CARRINHO */
+  // Atualiza a tela do carrinho
   atualizar_carrinho();
 }
 
-/* REMOVE O PRODUTO DO CARRINHO */
+// Tira um produto do carrinho de vez
 function tirar_produto(idDoProduto) {
-  let carrinhoTexto = localStorage.getItem("carrinho_superman");
-  let carrinho;
-  if (carrinhoTexto === null) {
-    carrinho = [];
-  } else {
-    carrinho = JSON.parse(carrinhoTexto);
-  }
+  let carrinho = JSON.parse(localStorage.getItem("carrinho_superman")) || [];
+  // Filtra o carrinho, deixando só os produtos que não tem o ID que a gente quer tirar
+  carrinho = carrinho.filter((p) => p.id !== idDoProduto);
 
-  /* CRIA UM NOVO CARRINHO */
-  let novoCarrinho = [];
-
-  /* PASSA PELOS PRODUTOS DO CARRINHO ANTIGO */
-  for (let i = 0; i < carrinho.length; i++) {
-    if (carrinho[i].id !== idDoProduto) {
-      novoCarrinho.push(carrinho[i]);
-    }
-  }
-
-  /* ATUALIZA O CARRINHO */
-  carrinho = novoCarrinho;
-
-  /* SALVA O NOVO CARRINHO */
+  // Salva o carrinho sem o produto
   localStorage.setItem("carrinho_superman", JSON.stringify(carrinho));
 
-  /* ATUALIZA A TELA DO CARRINHO */
+  // Atualiza a tela do carrinho
   atualizar_carrinho();
 }
