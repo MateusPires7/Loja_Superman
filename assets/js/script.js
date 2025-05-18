@@ -110,7 +110,6 @@ function logar() {
       sessionStorage.setItem("usuario_logado", dados[i].usuario); // GUARDAR INFORMACAO DE LOGADO
       window.location.href = "index.html"; // DIRECIONAR PARA PAGINA INICIAL DEPOIS DE LOGADO
       usuarioEncontrado = true; // VERIFICADOR DE LOGIN E SENHA ENCONTRADOS
-      break; // INTERROMPE O FOR
     }
   }
   /* MOSTRAR ALERTA DE ERRO APENAS SE NENHUM USUÁRIO FOI ENCONTRADO */
@@ -171,6 +170,10 @@ function redirecionar(event) {
     if (event.currentTarget.closest("#item-menu-carrinho")) {
       event.preventDefault();
       window.location.href = "cart.html"; // REDIRECIONA PARA PAGINA DO CARRINHO
+    } else if (event.currentTarget.classList.contains("verificador")) {
+      alert("Produto foi adicionado ao carrinho!");
+      adicionar_produto();
+      window.location.href = "cart.html";
     }
   }
 }
@@ -182,4 +185,158 @@ continuar.addEventListener("click", continuar_comprando);
 /* FUNÇAO PARA DIRECIONAR PARA PAGINA INICIAL */
 function continuar_comprando() {
   window.location.href = "index.html";
+}
+
+function adicionar_produto() {
+  // Eita! Pegar os produtos que tão guardados, né?
+  const produtos = JSON.parse(localStorage.getItem("bancodados_produtos"));
+
+  // Qual botão que o cara clicou? Deixa eu ver...
+  const botao = event.currentTarget;
+
+  // Ah, pegou o card do produto! Beleza!
+  const card = botao.closest(".produtos__card");
+  const nomeProduto = card
+    .querySelector(".produtos__card-titulo")
+    .textContent.trim();
+
+  // Procurar o produto lá no nosso banco de dados
+  const produtoSelecionado = produtos.find((p) => p.nome === nomeProduto);
+
+  // Vê se já tem carrinho salvo, se não tiver, cria um do zero
+  let carrinho = JSON.parse(localStorage.getItem("carrinho_superman")) || [];
+
+  // Opa, esse produto já tá no carrinho?
+  const produtoNoCarrinho = carrinho.find(
+    (item) => item.id === produtoSelecionado.id
+  );
+
+  if (produtoNoCarrinho) {
+    // Se já tem, só aumentar a quantidade, sem stress
+    produtoNoCarrinho.quantidade += 1;
+  } else {
+    // Se é novidade, bota ele no carrinho com quantidade 1
+    carrinho.push({
+      ...produtoSelecionado,
+      quantidade: 1,
+    });
+  }
+
+  // Salva as mudanças no carrinho pra não perder a compra
+  localStorage.setItem("carrinho_superman", JSON.stringify(carrinho));
+}
+
+// --- A mágica do carrinho na página do carrinho (cart.html) ---
+if (window.location.pathname.includes("cart.html")) {
+  atualizar_carrinho();
+
+  // Ficar de olho nos cliques pra aumentar, diminuir ou tirar produto
+  document
+    .querySelector(".carrinho__produtos")
+    .addEventListener("click", function (event) {
+      if (event.target.classList.contains("btn-aumentar")) {
+        mudar_quantidade(event.target.dataset.id, 1); // Aumentar um pouquinho
+      }
+      if (event.target.classList.contains("btn-diminuir")) {
+        mudar_quantidade(event.target.dataset.id, -1); // Diminuir um pouquinho
+      }
+      if (event.target.classList.contains("btn-remover")) {
+        tirar_produto(event.target.dataset.id); // Xô produto!
+      }
+    });
+}
+
+// Desenha o carrinho na tela e mostra o preço total, saca?
+function atualizar_carrinho() {
+  const carrinho = JSON.parse(localStorage.getItem("carrinho_superman")) || [];
+  const listaDeProdutos = document.querySelector(".carrinho__produtos");
+  const valorTotalNaTela = document.querySelector(".carrinho__valor");
+
+  // Se não achou os lugares pra mostrar, nem tenta
+  if (!listaDeProdutos || !valorTotalNaTela) return;
+
+  // Carrinho vazio? Avisa o cliente!
+  if (carrinho.length === 0) {
+    listaDeProdutos.innerHTML =
+      "<p style='font-size:2rem;text-align:center;'>Ih, carrinho vazio! Bora comprar!</p>";
+    valorTotalNaTela.textContent = "R$ 0,00";
+    return;
+  }
+
+  let htmlDoCarrinho = "";
+  let totalDaCompra = 0;
+
+  carrinho.forEach((produto) => {
+    const precoTotalProduto = produto.preco * produto.quantidade;
+    totalDaCompra += precoTotalProduto;
+    htmlDoCarrinho += `
+      <div class="row align-items-center mb-4" style="border-bottom:1px solid #eee;padding-bottom:1rem;">
+        <div class="col-3 col-md-2">
+          <img src="${produto.imagem}" alt="${
+      produto.alt
+    }" style="width:100%;max-width:80px;">
+        </div>
+        <div class="col-5 col-md-4">
+          <span style="font-size:2rem;">${produto.nome}</span>
+        </div>
+        <div class="col-4 col-md-2">
+          <span style="font-size:1.8rem;">R$ ${produto.preco
+            .toFixed(2)
+            .replace(".", ",")}</span>
+        </div>
+        <div class="col-12 col-md-3 mt-2 mt-md-0 d-flex align-items-center gap-2">
+          <button class="btn btn-sm btn-secondary btn-diminuir" data-id="${
+            produto.id
+          }">-</button>
+          <span style="font-size:1.6rem;">${produto.quantidade}</span>
+          <button class="btn btn-sm btn-secondary btn-aumentar" data-id="${
+            produto.id
+          }">+</button>
+          <button class="btn btn-sm btn-danger btn-remover ms-2" data-id="${
+            produto.id
+          }"><i class="bi bi-trash"></i></button>
+        </div>
+      </div>
+    `;
+  });
+
+  // Manda o HTML pro carrinho e atualiza o valor total
+  listaDeProdutos.innerHTML = htmlDoCarrinho;
+  valorTotalNaTela.textContent =
+    "R$ " + totalDaCompra.toFixed(2).replace(".", ",");
+}
+
+// Muda a quantidade do produto no carrinho
+function mudar_quantidade(idDoProduto, variacao) {
+  let carrinho = JSON.parse(localStorage.getItem("carrinho_superman")) || [];
+  const produtoAchado = carrinho.find((p) => p.id === idDoProduto);
+
+  // Se não achou o produto, fazer nada
+  if (!produtoAchado) return;
+
+  produtoAchado.quantidade += variacao;
+
+  // Se a quantidade virar zero ou menos, tira o produto do carrinho
+  if (produtoAchado.quantidade < 1) {
+    carrinho = carrinho.filter((p) => p.id !== idDoProduto);
+  }
+
+  // Salva o carrinho atualizado
+  localStorage.setItem("carrinho_superman", JSON.stringify(carrinho));
+
+  // Atualiza a tela do carrinho
+  atualizar_carrinho();
+}
+
+// Tira um produto do carrinho de vez
+function tirar_produto(idDoProduto) {
+  let carrinho = JSON.parse(localStorage.getItem("carrinho_superman")) || [];
+  // Filtra o carrinho, deixando só os produtos que não tem o ID que a gente quer tirar
+  carrinho = carrinho.filter((p) => p.id !== idDoProduto);
+
+  // Salva o carrinho sem o produto
+  localStorage.setItem("carrinho_superman", JSON.stringify(carrinho));
+
+  // Atualiza a tela do carrinho
+  atualizar_carrinho();
 }
