@@ -258,7 +258,7 @@ function atualizar_carrinho() {
   // Carrinho vazio? Avisa o cliente!
   if (carrinho.length === 0) {
     listaDeProdutos.innerHTML =
-      "<p style='font-size:2rem;text-align:center;'>Ih, carrinho vazio! Bora comprar!</p>";
+      "<p class='carrinho__mensagem-vazio'>Ih, carrinho vazio! Bora comprar!</p>";
     valorTotalNaTela.textContent = "R$ 0,00";
     return;
   }
@@ -270,31 +270,33 @@ function atualizar_carrinho() {
     const precoTotalProduto = produto.preco * produto.quantidade;
     totalDaCompra += precoTotalProduto;
     htmlDoCarrinho += `
-      <div class="row align-items-center mb-4" style="border-bottom:1px solid #eee;padding-bottom:1rem;">
-        <div class="col-3 col-md-2">
+      <div class="carrinho__produto-container">
+        <div>
           <img src="${produto.imagem}" alt="${
       produto.alt
-    }" style="width:100%;max-width:80px;">
+    }" class="carrinho__produto-imagem">
         </div>
-        <div class="col-5 col-md-4">
-          <span style="font-size:2rem;">${produto.nome}</span>
-        </div>
-        <div class="col-4 col-md-2">
-          <span style="font-size:1.8rem;">R$ ${produto.preco
-            .toFixed(2)
-            .replace(".", ",")}</span>
-        </div>
-        <div class="col-12 col-md-3 mt-2 mt-md-0 d-flex align-items-center gap-2">
-          <button class="btn btn-sm btn-secondary btn-diminuir" data-id="${
-            produto.id
-          }">-</button>
-          <span style="font-size:1.6rem;">${produto.quantidade}</span>
-          <button class="btn btn-sm btn-secondary btn-aumentar" data-id="${
-            produto.id
-          }">+</button>
-          <button class="btn btn-sm btn-danger btn-remover ms-2" data-id="${
-            produto.id
-          }"><i class="bi bi-trash"></i></button>
+        <div class="carrinho__produto-caixa">
+          <div>
+            <span class="carrinho__produto-nome";">${produto.nome}</span>
+          </div>
+          <div>
+            <span class="carrinho__produto-preco">R$ ${produto.preco
+              .toFixed(2)
+              .replace(".", ",")}</span>
+          </div>
+          <div>
+            <button class="carrinho__produto-diminuir btn-diminuir" data-id="${
+              produto.id
+            }">-</button>
+            <span class="carrinho__produto-quantidade";">${produto.quantidade}</span>
+            <button class="carrinho__produto-aumentar btn-aumentar" data-id="${
+              produto.id
+            }">+</button>
+            <button class="carrinho__produto-remover btn-remover" data-id="${
+              produto.id
+            }"><i class="bi bi-trash"></i></button>
+          </div>
         </div>
       </div>
     `;
