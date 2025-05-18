@@ -182,6 +182,29 @@
     width: 40%;
   }
 
+  .modal__titulo {
+    font-size: 5rem;
+    color: var(--cor-clara);
+  }
+
+  .modal__mensagem-pagamento {
+    color: var(--cor-clara);
+    font-size: 3.5rem;
+  }
+
+  .modal__pix-label {
+    color: var(--cor-escura);
+    font-size: 6rem;
+  }
+
+  .modal__botao-finalizar {
+    font-size: 3.5rem;
+  }
+
+  .modal__botao-continuar {
+    font-size: 3.5rem;
+  }
+
   @media (min-width: 992px) {
     .carrinho__mensagem-vazio {
       font-size: 7rem;

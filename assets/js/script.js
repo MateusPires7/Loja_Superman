@@ -95,10 +95,9 @@ function dicionario_produtos() {
   }
 }
 
-let usuarioEncontrado = false; // VARIAVEL VERIFICADORA DE LOGIN E SENHA ENCONTRADOS
-
 /* VERIFICAR CADASTROS E LOGAR */
 function logar() {
+  let usuarioEncontrado = false; // VARIAVEL VERIFICADORA DE LOGIN E SENHA ENCONTRADOS
   const login = document.querySelector("#login").value;
   const senha = document.querySelector("#senha").value;
   /* PEGAR DADOS DO LOCAL STORAGE */
@@ -146,6 +145,7 @@ if (usuario) {
 
 /* FUNÇAO PARA DESLOGAR */
 function deslogar() {
+  localStorage.removeItem("carrinho_superman");
   sessionStorage.removeItem("usuario_logado");
   alert("Você foi desconectado.");
   window.location.reload();
@@ -154,7 +154,15 @@ function deslogar() {
 /* ADICIONADO FUNÇÃO DE REDIRECIONAR NOS BOTÕES DOS PRODUTOS */
 const carrinho_adicionar = document.querySelectorAll(".verificador");
 carrinho_adicionar.forEach((botao) => {
-  botao.addEventListener("click", redirecionar);
+  botao.addEventListener("click", function (event) {
+    if (!verificar_se_logado()) {
+      alert("Você precisa estar logado para acessar essa função!");
+      window.location.href = "login.html";
+    } else {
+      alert("Produto foi adicionado ao carrinho!");
+      adicionar_produto(event);
+    }
+  });
 });
 
 /* ADICIONADO FUNÇÃO DE REDIRECIONAR NO ICONE DO CARRINHO */
@@ -177,23 +185,21 @@ function redirecionar(event) {
   }
 }
 
-/* REDIRECIONAR PARA PAGINA INICIAL CASO QUEIRA CONTINUAR COMPRANDO */
-const continuar = document.querySelector("#continuar_compras");
-continuar.addEventListener("click", continuar_comprando);
-
 /* FUNÇAO PARA DIRECIONAR PARA PAGINA INICIAL */
 function continuar_comprando() {
   window.location.href = "index.html";
 }
-
+/* ADICIONAR PRODUTO NO CARRINHO */
 function adicionar_produto(event) {
   const produtos = JSON.parse(localStorage.getItem("bancodados_produtos")); // PEGAR PRODUTOS GUARDADOS NO LOCAL STORAGE
   const botao = event.currentTarget; // IDENTIFICAR O BOTÃO ADICIONAR QUE FOI APERTADO
   const card = botao.closest(".produtos__card"); // PEGAR O CARD PAI DO BOTÃO ADICIONAR
-  const nomeProduto = card.querySelector(".produtos__card-titulo").textContent.trim(); // PEGAR TITULO DO PRODUTO
+  const nomeProduto = card
+    .querySelector(".produtos__card-titulo")
+    .textContent.trim(); // PEGAR TITULO DO PRODUTO
   const produtoSelecionado = produtos.find((p) => p.nome === nomeProduto); // PROCURAR O PRODUTO NO LOCAL STORAGE PELO NOME
   let carrinho = JSON.parse(localStorage.getItem("carrinho_superman")) || []; // CRIAR CARRINHO OU PEGAR CARRINHO EXISTENTE
-  
+
   /* VERIFICAR SE O PRODUTO JÁ ESTÁ NO CARRINHO */
   const produtoNoCarrinho = carrinho.find(
     (item) => item.id === produtoSelecionado.id
@@ -208,14 +214,14 @@ function adicionar_produto(event) {
     });
   }
 
-  localStorage.setItem("carrinho_superman", JSON.stringify(carrinho));  // SALVAR CARRINHO NO LOCAL STORAGE
+  localStorage.setItem("carrinho_superman", JSON.stringify(carrinho)); // SALVAR CARRINHO NO LOCAL STORAGE
 }
 
 /* VERIFICAR SE ESTÁ NA PAGINA DO CARRINHO */
 if (window.location.pathname.includes("cart.html")) {
   atualizar_carrinho();
 
-/* VERIFICAR SE BOTÕES DE AUMENTAR, DIMINUIR OU EXCLUIR PRODUTOS FOI APERTADO */
+  /* VERIFICAR SE BOTÕES DE AUMENTAR, DIMINUIR OU EXCLUIR PRODUTOS FOI APERTADO */
   document
     .querySelector(".carrinho__produtos")
     .addEventListener("click", function (event) {
@@ -237,8 +243,7 @@ function atualizar_carrinho() {
   const carrinho = JSON.parse(localStorage.getItem("carrinho_superman")) || [];
   const listaDeProdutos = document.querySelector(".carrinho__produtos");
   const valorTotalNaTela = document.querySelector(".carrinho__valor");
-
-  if (!listaDeProdutos || !valorTotalNaTela) return;
+  const botaoFinalizarCompra = document.getElementById("finalizar_compra"); // PEGAR O BOTÃO FINALIZAR COMPRA
 
   /* MENSAGEM DE CARRINHO VAZIO */
   if (carrinho.length === 0) {
@@ -247,6 +252,8 @@ function atualizar_carrinho() {
     valorTotalNaTela.textContent = "R$ 0,00";
     return;
   }
+
+  botaoFinalizarCompra.disabled = false;
 
   let htmlDoCarrinho = "";
   let totalDaCompra = 0;
@@ -319,5 +326,66 @@ function tirar_produto(idDoProduto) {
   let carrinho = JSON.parse(localStorage.getItem("carrinho_superman")) || [];
   carrinho = carrinho.filter((produto) => produto.id !== idDoProduto);
   localStorage.setItem("carrinho_superman", JSON.stringify(carrinho));
-  atualizar_carrinho(); 
+  atualizar_carrinho();
+}
+
+/* VERIFICAÇÃO DE QUANDO FINALIZAR COMPRA DO CARRINHO FOR CLICADO */
+document.addEventListener("DOMContentLoaded", function () {
+  const botao = document.getElementById("finalizar_compra"); // PEGA O BOTÃO
+
+  if (botao) {
+    botao.addEventListener("click", function (event) {
+      event.preventDefault();
+      /* VERIFICA SE O CARRINHO ESTÁ VAZIO */
+      let carrinho = localStorage.getItem("carrinho_superman");
+      carrinho = carrinho ? JSON.parse(carrinho) : [];
+      /* SE ESTIVER VAZIO REMOVE OS ATRIBUTOS QUE CHAMA O MODAL DE PAGAMENTO */
+      if (carrinho.length === 0) {
+        botao.removeAttribute("data-bs-toggle");
+        botao.removeAttribute("data-bs-target");
+        alert(
+          "Seu carrinho está vazio. Adicione produtos antes de finalizar a compra."
+        );
+        return; // INTERROMPE O CODIGO
+      }
+      /* SE TIVER PRODUTO ADICIONA OS ATRIBUTOS QUE CHAMA O MODAL */
+      botao.setAttribute("data-bs-toggle", "modal");
+      botao.setAttribute("data-bs-target", "#exampleModal");
+
+      let meuModal = new bootstrap.Modal(
+        document.getElementById("exampleModal")
+      );
+      meuModal.show();// MOSTRA O MODAL
+    });
+  }
+});
+
+/* FINALIZAR COMPRA */
+function finalizar_compra() {
+  /* PEGA INPUTS RADIOS PARA VERFICAR */
+  const metodosPagamento = document.querySelectorAll(
+    '#exampleModal input[name="pagamento"]'
+  );
+  let pagamentoSelecionado = false; // VARIAVEL PARA CONTROLAR SE METODO DE PAGAMENTO FOI ESCOLHIDO
+  /* PASSA POR TODOS OS METODOS DE PAGAMENTO E VER SE ALGUM FOI ESCOLHIDO */
+  for (const metodo of metodosPagamento) {
+    if (metodo.checked) {
+      pagamentoSelecionado = true;
+      break;
+    }
+  }
+  /* VERIFICA SE ESCOLHEU UM METODO DE PAGAMENTO */
+  if (!pagamentoSelecionado) {
+    alert(
+      "Por favor, selecione um método de pagamento antes de finalizar a compra."
+    );
+    return; // FINALIZA A FUNÇÃO ATÉ SER ESCOLHIDO UM METODO DE PAGAMENTO
+  }
+
+  alert("Compra Finalizada!");
+  localStorage.removeItem("carrinho_superman"); // APAGA CARRINHO DO LOCAL STORAGE
+  bootstrap.Modal.getInstance(document.getElementById("exampleModal")).hide(); // FECHA O MODAL
+  /* ATUALIZA PAGINA DO CARRINHO E RECARREGA A PAGINA */
+  atualizar_carrinho();
+  window.location.reload();
 }

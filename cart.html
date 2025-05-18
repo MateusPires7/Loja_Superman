@@ -76,12 +76,11 @@
           <button
             class="carrinho__pagamento"
             id="finalizar_compra"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
+
           >
             Finalizar Compra
           </button>
-          <button class="carrinho__continuar" id="continuar_compras">
+          <button class="carrinho__continuar" id="continuar" onclick="continuar_comprando()">
             Continuar Comprando
           </button>
         </div>
@@ -115,12 +114,12 @@
           <div class="modal-body">
             <p class="modal__mensagem-pagamento">Escolha seu método de pagamento</p>
             <form>
-              <input type="radio" id="pix" name="pagamento" value="PIX" class="modal__input">
-              <label for=pix" class="modal__pix-label">PIX</label><br>
-              <input type="radio" id="boleto" name="pagamento" value="PIX" class="modal__input">
-              <label for=boleto" class="modal__pix-label">Boleto</label><br>
-              <input type="radio" id="cartao" name="pagamento" value="PIX" class="modal__input">
-              <label for=cartao" class="modal__pix-label">Cartão</label><br>
+              <label for=pix" class="modal__pix-label"><input type="radio" id="pix" name="pagamento" value="PIX" class="modal__input">PIX</label><br>
+              
+              <label for=boleto" class="modal__pix-label"><input type="radio" id="boleto" name="pagamento" value="PIX" class="modal__input">Boleto</label><br>
+              
+              <label for=cartao" class="modal__pix-label"><input type="radio" id="cartao" name="pagamento" value="PIX" class="modal__input">Cartão</label><br>
+              
             </form>
           </div>
           <div class="modal-footer">
@@ -132,7 +131,7 @@
             >
               Continuar Comprando
             </button>
-            <button type="button" class="btn modal__botao-finalizar">Finalizar</button>
+            <button type="button" class="btn modal__botao-finalizar" onclick="finalizar_compra()">Finalizar</button>
           </div>
         </div>
       </div>
