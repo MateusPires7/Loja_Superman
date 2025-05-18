@@ -240,8 +240,9 @@ if (window.location.pathname.includes("cart.html")) {
       if (event.target.classList.contains("btn-diminuir")) {
         mudar_quantidade(event.target.dataset.id, -1); // Diminuir um pouquinho
       }
-      if (event.target.classList.contains("btn-remover")) {
-        tirar_produto(event.target.dataset.id); // Xô produto!
+      if (event.target.closest(".btn-remover")) {
+        const botaoRemover = event.target.closest(".btn-remover");
+        tirar_produto(botaoRemover.dataset.id); // Remove o produto certinho
       }
     });
 }
@@ -289,7 +290,9 @@ function atualizar_carrinho() {
             <button class="carrinho__produto-diminuir btn-diminuir" data-id="${
               produto.id
             }">-</button>
-            <span class="carrinho__produto-quantidade";">${produto.quantidade}</span>
+            <span class="carrinho__produto-quantidade";">${
+              produto.quantidade
+            }</span>
             <button class="carrinho__produto-aumentar btn-aumentar" data-id="${
               produto.id
             }">+</button>
@@ -330,15 +333,15 @@ function mudar_quantidade(idDoProduto, variacao) {
   atualizar_carrinho();
 }
 
-// Tira um produto do carrinho de vez
 function tirar_produto(idDoProduto) {
   let carrinho = JSON.parse(localStorage.getItem("carrinho_superman")) || [];
-  // Filtra o carrinho, deixando só os produtos que não tem o ID que a gente quer tirar
-  carrinho = carrinho.filter((p) => p.id !== idDoProduto);
 
-  // Salva o carrinho sem o produto
+  // Remove o produto com o ID correspondente
+  carrinho = carrinho.filter((produto) => produto.id !== idDoProduto);
+
+  // Atualiza o carrinho salvo no localStorage
   localStorage.setItem("carrinho_superman", JSON.stringify(carrinho));
 
-  // Atualiza a tela do carrinho
+  // Atualiza a visualização do carrinho
   atualizar_carrinho();
 }
