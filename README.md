@@ -38,8 +38,8 @@ Basta clicar no link acima para acessar a Loja do Superman diretamente no seu na
 
 O código-fonte deste projeto está disponível no seguinte repositório GitHub:
 
-[**https://github.com/GuilhermeSilva-25/Loja_Superman**](https://github.com/GuilhermeSilva-25/Loja_Superman)
+[**https://github.com/MateusPires7/Loja_Superman.git**](https://github.com/MateusPires7/Loja_Superman.git)
 
 ## Contato
 
-guilherme.silva672@fatec.sp.gov.br
+mateus.pires@fatec.sp.gov.br
